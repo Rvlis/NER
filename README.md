@@ -7,13 +7,13 @@
 ## 安装(以spacy3.1为例，如果之前已经安装过，这步可省略)
 
 1. `pip install spacy==3.1.1`
-2. [下载模型 .whl/.tar.gz文件均可](https://github.com/explosion/spacy-models/releases/tag/en_core_web_md-3.1.0)
+2. [下载模型](https://github.com/explosion/spacy-models/releases/tag/en_core_web_md-3.1.0)`.whl/.tar.gz`文件均可
 
    ⭐注意这里存在一些[版本匹配和命名规则](https://github.com/explosion/spacy-models)的内容，建议自行阅读
-3. 安装模型
+3. 安装下载好的模型
    
    `pip install your/download/path/en_core_web_md-3.1.0.tar.gz`
-4. 验证
+4. 验证是否安装成功
    
    ```python
     >>> import spacy
@@ -52,21 +52,31 @@
 
 1. 解决：手动添加规则
    
-    1. 类型不一致: [精确字符串匹配并指定标签](https://spacy.io/usage/rule-based-matching#entityruler)
+    1. 类型不一致: [精确字符串匹配并指定标签](https://spacy.io/usage/rule-based-matching#entityruler) 源码 __45__ 行
    
         `{"label":"ORG", "pattern":"Nanhang"}`
 
     2. 未识别出的实体，[基于词性的正则匹配](https://spacy.io/usage/rule-based-matching#entityruler)，以 __Double First Class Discipline University__为例
 
-        - 获得目标实体的词性
+        - 首先获得目标实体的词性
             
             `python .\test.py -p "an elite Double First Class Discipline University"`
             
-        - 依据获得的词性制订匹配规则
+        - 依据获得的词性制订匹配规则，源码 __49~51__ 行
             
             `{"label":"TITLE", "pattern":[{"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}]}`
-            
 
-   
+        - 以上两步只是简陋地介绍了基于词性匹配特定实体的方法，实际当大量特定实体出现时这些规则还要经过总结、凝练，参考你们之前尝试复现的新加坡的那片论文
+
+## 相关链接
+- [spacy标注规范：包括pos、tag标签，可识别实体类型](https://spacy.io/api/annotation)
+- [spacy对各种标注的描述](https://github.com/explosion/spaCy/blob/master/spacy/glossary.py)
+- [spacy Matcher类](https://spacy.io/api/matcher)
+- [spacy EntityRuler类：实际上基于Matcher类，所以二者匹配模板的写法基本通用](https://spacy.io/usage/rule-based-matching#entityruler)
+
+## 阅后删😎
+1. 抱歉忘了这事了😅，其实我觉得这次没啥好说的，基于规则的方式你们第一次就做过了，然后spacy作为一种易用性很高的工具，几行代码就能使用它的实体识别功能了😂
+2. 我觉得我最后贴出的几条链接还是很有用的，可能这几篇提供的信息不是最多的，但它们解决的问题是最重要的，所以选择保存了下来
+3. 这次的任务能把代码跑通基本就ok了我觉得😁，有什么问题的话随时交流
    
    
