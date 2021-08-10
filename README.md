@@ -52,21 +52,31 @@
 
 1. 解决：手动添加规则
    
-    1. 类型不一致: [精确字符串匹配并指定标签](https://spacy.io/usage/rule-based-matching#entityruler) 源码 __45__ 行
+    1. 类型不一致: [精确字符串匹配并指定类型标签](https://spacy.io/usage/rule-based-matching#entityruler) [源码45行](test.py)
    
         `{"label":"ORG", "pattern":"Nanhang"}`
 
-    2. 未识别出的实体，[基于词性的正则匹配](https://spacy.io/usage/rule-based-matching#entityruler)，以 __Double First Class Discipline University__为例
+    2. 未识别出的实体，[基于词性的正则匹配](https://spacy.io/usage/rule-based-matching#entityruler)，以 __Double First Class Discipline University__ 为例
 
         - 首先获得目标实体的词性
             
             `python .\test.py -p "an elite Double First Class Discipline University"`
+
+            <div align="center">
+                <img src="./img/get_pos.png" width = "80%" alt="pipeline" align=center />
+            </div>
             
-        - 依据获得的词性制订匹配规则，源码 __49~51__ 行
+        - 依据获得的词性制订匹配规则，[源码49~51行](./test.py)
             
             `{"label":"TITLE", "pattern":[{"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}, {"POS":"PROPN"}]}`
 
         - 以上两步只是简陋地介绍了基于词性匹配特定实体的方法，实际当大量特定实体出现时这些规则还要经过总结、凝练，参考你们之前尝试复现的新加坡的那片论文
+
+    3. 结合规则后的实体识别效果
+
+        <div align="center">
+            <img src="./img/rule.png" width = "80%" alt="pipeline" align=center />
+        </div>
 
 ## 相关链接
 - [spacy标注规范：包括pos、tag标签，可识别实体类型](https://spacy.io/api/annotation)
@@ -77,6 +87,6 @@
 ## 阅后删😎
 1. 抱歉忘了这事了😅，其实我觉得这次没啥好说的，基于规则的方式你们第一次就做过了，然后spacy作为一种易用性很高的工具，几行代码就能使用它的实体识别功能了😂
 2. 我觉得我最后贴出的几条链接还是很有用的，可能这几篇提供的信息不是最多的，但它们解决的问题是最重要的，所以选择保存了下来
-3. 这次的任务能把代码跑通基本就ok了我觉得😁，有什么问题的话随时交流
+3. 这次的任务能把代码跑通基本就ok了我觉得，代码写得比较潦草，选择的例句也不够典型，很多地方总结的不够到位，有什么问题提出来随时交流，大家相互学习。😁
    
    
